@@ -73,7 +73,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
             position: 'absolute',
             top: clickedNode._data?.view?.abs_y+clickedNode._data?.view?.height+10,
             left: clickedNode._data?.view?.abs_x,
-            width: '570px',
+            // width: '570px',
             backgroundColor: "white",
             // padding: "4px",
             border: "1px solid #ccc",
