@@ -96,45 +96,25 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
             }}
            >
           {clickedNode.topic}
-          <img width="12" height="12" src="https://img.icons8.com/small/16/delete-sign.png" alt="delete-sign" onClick={() => {
-            setClickedNode(false)
-          }}/>
-          </div>
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '20px',
-            alignItems: 'center'
-          }}>
-            {clickedNode.data?.data?.info}
-            <iframe width="60%" height="auto" 
-              title="video"
-              src="https://cdn2.percipio.com/secure/b/1695879574.258c1e37fc9f0c365f9b6ed46a9ea1c70c72ed62/eot/af58d56f-fc23-4585-98fd-c663cd172d1a/720_2200kps.mp4" 
-              allowFullScreen
-            ></iframe>
-          </div>
-        </div>
-      )}
-      </div>
-      <div>
-        {nodeClicked && clickedNode && (
-        <div
+          <div
           style={{
             position: 'absolute',
+            right: "6%",
+            top: "7%",
             display: 'flex',
-            justifyContent: 'center',
-            gap: "4px",
-            top: clickedNode._data?.view?.abs_y-clickedNode._data?.view?.height-10,
-            left: clickedNode._data?.view?.abs_x + (clickedNode._data?.view?.width)/2 - 62,
-            width: 'auto',
+            justifyContent: 'space-between',
+            // gap: "4px",
+            // top: clickedNode._data?.view?.abs_y-clickedNode._data?.view?.height-10,
+            // left: clickedNode._data?.view?.abs_x + (clickedNode._data?.view?.width)/2 - 62,
+            // width: 'auto',
             backgroundColor: "white",
-            padding: "4px",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
+            // padding: "4px",
+            // border: "1px solid #ccc",
+            // borderRadius: "4px",
             zIndex: 2,
             transition: "transform 0.5s ease-in-out",
-            transform:"scale(4)",
-            boxShadow: "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+            transform:"scale(1)",
+            // boxShadow: "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
           }}
         >
             <img width="24" height="24" src="https://img.icons8.com/color/48/add--v1.png" alt="add--v1" onClick={(e) => {
@@ -170,9 +150,9 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
             });
           }}/>
           
-          <img width="12" height="12" src="https://img.icons8.com/small/16/delete-sign.png" alt="delete-sign" onClick={() => {
+          {/* <img width="12" height="12" src="https://img.icons8.com/small/16/delete-sign.png" alt="delete-sign" onClick={() => {
             setNodeClicked(false)
-          }}/>
+          }}/> */}
           <span style={{
             position: "absolute",
             bottom: "-10px",  
@@ -184,7 +164,30 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
             width: "0",  
           }}></span> 
         </div>
+          <img width="12" height="12" src="https://img.icons8.com/small/16/delete-sign.png" alt="delete-sign" onClick={() => {
+            setClickedNode(false)
+          }}/>
+          </div>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+            alignItems: 'center'
+          }}>
+            {clickedNode.data?.data?.info}
+            <iframe width="60%" height="auto" 
+              title="video"
+              src="https://cdn2.percipio.com/secure/b/1695879574.258c1e37fc9f0c365f9b6ed46a9ea1c70c72ed62/eot/af58d56f-fc23-4585-98fd-c663cd172d1a/720_2200kps.mp4" 
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
       )}
+      </div>
+      <div>
+        {/* {nodeClicked && clickedNode && (
+        
+      )} */}
       </div>
     </div>
   );
