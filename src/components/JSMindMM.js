@@ -82,7 +82,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
             boxShadow: "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
             padding: "10px",
             transition: "transform 0.5s ease-in-out",
-            transform:"scale(1.25)"
+            transform:"scale(1.4)"
           }}
         >
           <div
@@ -132,6 +132,8 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
             border: "1px solid #ccc",
             borderRadius: "4px",
             zIndex: 2,
+            transition: "transform 0.5s ease-in-out",
+            transform:"scale(1.5)",
             boxShadow: "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
           }}
         >
