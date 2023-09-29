@@ -34,7 +34,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
       targetNode.style.backgroundColor = node.data?.data?.backgroundColor; 
       targetNode.style.transition = "transform 0.5s ease-in-out";
       targetNode.style.transform = "scale(2.5)" ;
-      targetNode.style.zIndex = "3";
+      targetNode.style.zIndex = "4";
       if (!nodeClicked) {
         node.data?.data?.info?
           setHoveredNode(node):
@@ -51,7 +51,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
       const node = jm.get_node(nodeId);
       targetNode.style.backgroundColor = node.data?.data?.backgroundColor; 
       targetNode.style.transform = "scale(1)" ;
-      targetNode.style.zIndex = "3";
+      targetNode.style.zIndex = "4";
       }
 
     jmContainer.current.addEventListener("click", handleClick);
