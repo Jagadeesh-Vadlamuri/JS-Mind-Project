@@ -71,7 +71,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
         <div
           style={{
             position: 'absolute',
-            top: clickedNode._data?.view?.abs_y+clickedNode._data?.view?.height+30,
+            top: clickedNode._data?.view?.abs_y+clickedNode._data?.view?.height+300,
             left: clickedNode._data?.view?.abs_x,
             width: '670px',
             backgroundColor: "white",
