@@ -5,7 +5,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
   const [jmInstance, setJmInstance] = useState(null)
   const [nodeClicked, setNodeClicked] = useState(false);
   const [hoveredNode, setHoveredNode] = useState(null);
-  const [clickedNode, setClickedNode] = useState(null);
+  const [clickedNode, setClickedNode] = useState(false);
 
   useEffect(() => {
     const jm = new window.jsMind(options);
@@ -17,10 +17,12 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
     const handleClick = (e) => {
       const selectedNode = jm.get_selected_node();
       if (selectedNode) {
+        setClickedNode(true)
         setClickedNode(jm.get_selected_node())
         setNodeClicked(true)
         setHoveredNode(null)
       }
+      console.log(selectedNode)
     };
 
     const handleHover = (e) => {
@@ -49,7 +51,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
       const node = jm.get_node(nodeId);
       targetNode.style.backgroundColor = node.data?.data?.backgroundColor; 
       targetNode.style.transform = "scale(1)" ;
-      targetNode.style.zIndex = "2";
+      targetNode.style.zIndex = "3";
       }
 
     jmContainer.current.addEventListener("click", handleClick);
@@ -65,12 +67,12 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
     <div>
       <div ref={jmContainer} id={options.container} style={styles}></div>
       <div>
-        {hoveredNode && (
+        {clickedNode && (
         <div
           style={{
             position: 'absolute',
-            top: hoveredNode._data?.view?.abs_y+hoveredNode._data?.view?.height+10,
-            left: hoveredNode._data?.view?.abs_x,
+            top: clickedNode._data?.view?.abs_y+clickedNode._data?.view?.height+10,
+            left: clickedNode._data?.view?.abs_x,
             width: '570px',
             backgroundColor: "white",
             // padding: "4px",
@@ -79,6 +81,8 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
             zIndex: 2,
             boxShadow: "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
             padding: "10px",
+            transition: "transform 0.5s ease-in-out",
+            transform:"scale(1.25)"
           }}
         >
           <div
@@ -91,9 +95,9 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
               padding: "10px"
             }}
            >
-          {hoveredNode.topic}
+          {clickedNode.topic}
           <img width="12" height="12" src="https://img.icons8.com/small/16/delete-sign.png" alt="delete-sign" onClick={() => {
-            setHoveredNode(null)
+            setClickedNode(false)
           }}/>
           </div>
           <div style={{
@@ -102,7 +106,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
             gap: '20px',
             alignItems: 'center'
           }}>
-            {hoveredNode.data?.data?.info}
+            {clickedNode.data?.data?.info}
             <iframe width="60%" height="auto" 
               title="video"
               src="https://cdn2.percipio.com/secure/b/1695879574.258c1e37fc9f0c365f9b6ed46a9ea1c70c72ed62/eot/af58d56f-fc23-4585-98fd-c663cd172d1a/720_2200kps.mp4" 
