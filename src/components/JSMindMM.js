@@ -100,7 +100,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
           style={{
             position: 'absolute',
             right: "6%",
-            top: "7%",
+            top: "6%",
             display: 'flex',
             justifyContent: 'space-between',
             // gap: "4px",
