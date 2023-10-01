@@ -177,7 +177,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
             {clickedNode.data?.data?.info}
             <iframe width="60%" height="auto" 
               title="video"
-              src="https://cdn2.percipio.com/secure/b/1695879574.258c1e37fc9f0c365f9b6ed46a9ea1c70c72ed62/eot/af58d56f-fc23-4585-98fd-c663cd172d1a/720_2200kps.mp4" 
+              src="https://cdn2.percipio.com/secure/b/1696234779.2bce70d738325a90edb5a3b518f76907c113e7a0/eot/af58d56f-fc23-4585-98fd-c663cd172d1a/720_2200kps.mp4" 
               allowFullScreen
             ></iframe>
           </div>
