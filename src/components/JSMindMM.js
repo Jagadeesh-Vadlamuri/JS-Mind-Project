@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import '../App.css';
 
 const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
   const jmContainer = useRef(null);
@@ -117,6 +118,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
             // boxShadow: "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
           }}
         >
+          <div class="add">
             <img width="24" height="24" src="https://img.icons8.com/color/48/add--v1.png" alt="add--v1" onClick={(e) => {
             var new_node_id = clickedNode.id + '_' + new Date().getTime();  
             var new_node_topic = "This is a new node";  
@@ -129,16 +131,21 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
               node.style.backgroundColor = parentNode.children[0].data?.data?.backgroundColor;  
               }
             });
-          }}/>
-          { clickedNode.id !== "root" && (<img width="24" height="24" src="https://img.icons8.com/color/48/delete-forever.png" alt="delete-forever" onClick={() => {
+          }} /><span class="addNode">Add Node</span></div>
+
+          { clickedNode.id !== "root" && (
+          <div class="delete"><img width="24" height="24" src="https://img.icons8.com/color/48/delete-forever.png" alt="delete-forever" onClick={() => {
             jmInstance.remove_node(clickedNode.id); 
             setNodeClicked(false)
             setHoveredNode(null)
-          }}/>)}
-          { clickedNode.data?.data?.url && (<img width="24" height="24" src="https://img.icons8.com/fluency/48/play.png" alt="play" onClick={() => {
+          }}/><span class="deleteNode">Delete Node</span></div>)}
+
+          { clickedNode.data?.data?.url && (
+          <div class="play"><img width="24" height="24" src="https://img.icons8.com/fluency/48/play.png" alt="play" onClick={() => {
             onClickCourse(jmInstance.get_selected_node())
-          }}/>)}
-          <img width="24" height="24" src="https://img.icons8.com/color/48/checked--v1.png" alt="checked--v1" onClick={() => {
+          }}/><span class="playNode">Open Course</span></div>)}
+
+          <div className="mark"><img width="24" height="24" src="https://img.icons8.com/color/48/checked--v1.png" alt="checked--v1" onClick={() => {
             var existing_data = clickedNode.data?.data; 
             existing_data.backgroundColor = "green";
             jmInstance.update_node(clickedNode.id, clickedNode.topic, existing_data);  
@@ -148,11 +155,8 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
               node.style.backgroundColor = "green";  
               }
             });
-          }}/>
+          }}/><span class="markNode">Mark as Completed</span></div>
           
-          {/* <img width="12" height="12" src="https://img.icons8.com/small/16/delete-sign.png" alt="delete-sign" onClick={() => {
-            setNodeClicked(false)
-          }}/> */}
           <span style={{
             position: "absolute",
             bottom: "-10px",  
