@@ -51,7 +51,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
       const node = jm.get_node(nodeId);
       targetNode.style.backgroundColor = node.data?.data?.backgroundColor; 
       targetNode.style.transform = "scale(1)" ;
-      targetNode.style.zIndex = "4";
+      targetNode.style.zIndex = "0";
       }
 
     jmContainer.current.addEventListener("click", handleClick);
