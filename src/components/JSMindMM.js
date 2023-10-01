@@ -67,7 +67,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
     <div>
       <div ref={jmContainer} id={options.container} style={styles}></div>
       <div>
-        {clickedNode && (
+        {clickedNode && nodeClicked &&(
         <div
           style={{
             position: 'absolute',
