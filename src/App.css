@@ -80,6 +80,11 @@
   display: inline-block;
 }
 
+.close {
+  position: relative;
+  display: inline-block;
+}
+
 .add .addNode {
   visibility: hidden;
   width: 120px;
@@ -155,6 +160,21 @@
   margin-left: -60px;
 }
 
+.close .closeText {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 120%;
+  left: 50%;
+  margin-left: -60px;
+}
+
 .add .addNode::after {
   content: "";
   position: absolute;
@@ -210,6 +230,17 @@
   border-color: black transparent transparent transparent;
 }
 
+.close .closeText::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
 .add:hover .addNode {
   visibility: visible;
 }
@@ -232,4 +263,8 @@
 .newTab:hover .newtabText {
   visibility: visible;
 
+}
+
+.close:hover .closeText {
+  visibility: visible;
 }

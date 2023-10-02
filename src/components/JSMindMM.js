@@ -35,11 +35,10 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
         setClickedNode(jm.get_selected_node());
         setHoveredNode(null);
       }
-      if(selectedNode && !popupOpened) {
+      if (selectedNode && !popupOpened) {
         selectedNode.style.transition = "transform 0.5s ease-in-out";
         selectedNode.style.transform = "scale(2.5)";
         selectedNode.style.zIndex = "1";
-        
       }
       // handlePopupClose();
     };
@@ -52,11 +51,11 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
       const node = jm.get_node(nodeId);
       targetNode.style.backgroundColor = node.data?.data?.backgroundColor;
       // if(popupOpened) {
-        targetNode.style.transition = "transform 0.5s ease-in-out";
-        targetNode.style.transform = "scale(2.5)";
-        targetNode.style.zIndex = "1";
+      targetNode.style.transition = "transform 0.5s ease-in-out";
+      targetNode.style.transform = "scale(2.5)";
+      targetNode.style.zIndex = "1";
       // }
-      
+
       if (!nodeClicked) {
         node.data?.data?.info ? setHoveredNode(node) : setHoveredNode(null);
       } else {
@@ -69,12 +68,10 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
       const nodeId = targetNode.getAttribute("nodeid");
       const node = jm.get_node(nodeId);
       targetNode.style.backgroundColor = node.data?.data?.backgroundColor;
-      console.log(popupClosed)
-        targetNode.style.transform = "scale(1)";
-        targetNode.style.zIndex = "0";
+      console.log(popupClosed);
+      targetNode.style.transform = "scale(1)";
+      targetNode.style.zIndex = "0";
     };
-
-    
 
     jmContainer.current.addEventListener("click", handleClick);
     nodes.forEach((node) => {
@@ -85,21 +82,21 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
     });
   }, []);
 
-  
   return (
     <div>
       <div ref={jmContainer} id={options.container} style={styles}></div>
       <div>
-        {clickedNode && nodeClicked && popupOpened &&(
+        {clickedNode && nodeClicked && popupOpened && (
           <div
             style={{
               position: "fixed",
               top:
                 clickedNode._data?.view?.abs_y +
-                clickedNode._data?.view?.height + 398,
+                clickedNode._data?.view?.height +
+                408,
               left: clickedNode._data?.view?.abs_x,
-              width: "570px",
-              height: '345px',
+              width: "590px",
+              height: "355px",
               backgroundColor: "white",
               // padding: "4px",
               border: "1px solid #ccc",
@@ -128,7 +125,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
                 style={{
                   position: "absolute",
                   right: "6%",
-                  top: "4.1%",
+                  top: "4.8%",
                   display: "flex",
                   justifyContent: "space-between",
                   // gap: "4px",
@@ -248,13 +245,16 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
                   }}
                 ></span>
               </div>
-              <img
-                width="12"
-                height="12"
-                src="https://img.icons8.com/small/16/delete-sign.png"
-                alt="delete-sign"
-                onClick={(e) => handlePopupClose(e)}
-              />
+              <div className="close">
+                <img
+                  width="12"
+                  height="12"
+                  src="https://img.icons8.com/small/16/delete-sign.png"
+                  alt="delete-sign"
+                  onClick={(e) => handlePopupClose(e)}
+                />
+                <span className="closeText">Close</span>
+              </div>
             </div>
             <div
               style={{
@@ -271,29 +271,32 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
                   alignItems: "center",
                 }}
               >
-                <div style={{padding: '9px', textAlign: 'left'}}>
+                <div style={{ padding: "9px", textAlign: "left" }}>
                   {clickedNode.data?.data?.info}
                 </div>
-                
+
                 <iframe
                   width="530px"
                   height="162px"
                   title="video"
                   overflow="hidden"
-                  src="https://cdn2.percipio.com/secure/b/1696234779.2bce70d738325a90edb5a3b518f76907c113e7a0/eot/af58d56f-fc23-4585-98fd-c663cd172d1a/720_2200kps.mp4"
+                  src="https://cdn2.percipio.com/secure/b/1696322898.a309974332da98e854e20c850de49950f80c96f6/eot/af58d56f-fc23-4585-98fd-c663cd172d1a/720_2200kps.mp4"
                   allowFullScreen
                 ></iframe>
               </div>
               <div>
                 <div className="newTab">
-                  <a href="https://cdn2.percipio.com/secure/b/1696234779.2bce70d738325a90edb5a3b518f76907c113e7a0/eot/af58d56f-fc23-4585-98fd-c663cd172d1a/720_2200kps.mp4" target="_blank">
-                  <img
-                    width="20"
-                    height="20"
-                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAP1BMVEX///9AQECtra0zMzMsLCzg4OApKSnX19c6Ojpzc3Ojo6MmJiapqanW1tba2trm5ubFxcW+vr5sbGycnJwXFxd1fVGJAAADRElEQVR4nO3d0XqaQBBAYQsoiaCmJu//rP3QWgTcuDs7rDPpOdcN5c8EVpc2bjZEREREREREREREREREREREtmr7StTvx4c77WWHm9a3isK+qyU158DxPr9Ex5vW9YrCqv4l6e09dMD9TnTASXVlWahBNC5UIFoX5hPNC7OJ9oWbfffThZlT9CDMm6ILYdYUfQhziE6EGUQvQjnRjVBM9COUEh0JhYuGJ6FsimsL6+Z5Xegd8JIomOLKwvpjG9Ep+m8QTHFlYbNVPPxQOtGbMJ3oTphM9CdMJToUJhI9CtMWDZfCTZ/w0sKn8PjThW3KhehR2DYJQI/CpAl6FCYC/QnTfkQdCtvk90/OhMkT9CZMn6AzoWCCvoSSCboSHiQT9CRMXQfdCQ9Gd/XVhKKbjCeh7CbjSCifoBNhxATr4HtiD8KICe62fei74EAYMcHmGN6Bsy+MWOgHYJBoXhix0F+BIaJ1YcRCfwMGiMaFMTeZ4/jHHxFtCyNvMmMPiKaFERPsjtMvWW74WxYmT3BoMUXDwsRr8NZ8inaFogkOzaZoVhi90C+bEq0KExb6ZROiUWHSQr/snmhTKLzJjN0RTQrFN5mxkWhRKFjol/1bNAwKFSY4dJuiPWH2NXjr7xTNCZUmOHSdojVhxkK/7EI0JsxcB+cNRGPC4I6ZCHghGhNuqifEuJvM2H5nTfiEmDbBof2XNeG3xOcL/bLPffrXhE9OZcUPE9MnOBT/r8gjzk3nVVuImHoNrpDWK+/HRNkEdVN79/SIaAGo+A54STQB1NzFmBNtAFV3oqZEAzeZS6q7ifdEIxPU3hEeiZKFfp2Ud/VvRDMT1H8ycyVauQaH1J+uDURDE1zjCWnVmQKu8ZS7P6icmVbF/s/My0LoP4T+Q+g/hP4zIDyd32edA79ZU5QB4bZ7m9WY2/POa7t4OmfuuUVmCDNDWCCEmSEsEMLMEBYIYWYIC4QwM4QFQpgZwgIhzAxhgRBmhrBACDNDWCCEmSEsEMLMEBaouDDu8y0U+1iegoHPKNHswRkY+JyZdUOIEOHrQ4gQ4etDiBDh60OI8D8T9l1tr65XFLZ9Za++VRQSERERERERERERERERERERafQHoYNGT9Oh+koAAAAASUVORK5CYII="
-                    alt="open-in-new-tab"
-                  />
-                  </a>  
+                  <a
+                    href="https://cdn2.percipio.com/secure/b/1696234779.2bce70d738325a90edb5a3b518f76907c113e7a0/eot/af58d56f-fc23-4585-98fd-c663cd172d1a/720_2200kps.mp4"
+                    target="_blank"
+                  >
+                    <img
+                      width="20"
+                      height="20"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAP1BMVEX///9AQECtra0zMzMsLCzg4OApKSnX19c6Ojpzc3Ojo6MmJiapqanW1tba2trm5ubFxcW+vr5sbGycnJwXFxd1fVGJAAADRElEQVR4nO3d0XqaQBBAYQsoiaCmJu//rP3QWgTcuDs7rDPpOdcN5c8EVpc2bjZEREREREREREREREREREREtmr7StTvx4c77WWHm9a3isK+qyU158DxPr9Ex5vW9YrCqv4l6e09dMD9TnTASXVlWahBNC5UIFoX5hPNC7OJ9oWbfffThZlT9CDMm6ILYdYUfQhziE6EGUQvQjnRjVBM9COUEh0JhYuGJ6FsimsL6+Z5Xegd8JIomOLKwvpjG9Ep+m8QTHFlYbNVPPxQOtGbMJ3oTphM9CdMJToUJhI9CtMWDZfCTZ/w0sKn8PjThW3KhehR2DYJQI/CpAl6FCYC/QnTfkQdCtvk90/OhMkT9CZMn6AzoWCCvoSSCboSHiQT9CRMXQfdCQ9Gd/XVhKKbjCeh7CbjSCifoBNhxATr4HtiD8KICe62fei74EAYMcHmGN6Bsy+MWOgHYJBoXhix0F+BIaJ1YcRCfwMGiMaFMTeZ4/jHHxFtCyNvMmMPiKaFERPsjtMvWW74WxYmT3BoMUXDwsRr8NZ8inaFogkOzaZoVhi90C+bEq0KExb6ZROiUWHSQr/snmhTKLzJjN0RTQrFN5mxkWhRKFjol/1bNAwKFSY4dJuiPWH2NXjr7xTNCZUmOHSdojVhxkK/7EI0JsxcB+cNRGPC4I6ZCHghGhNuqifEuJvM2H5nTfiEmDbBof2XNeG3xOcL/bLPffrXhE9OZcUPE9MnOBT/r8gjzk3nVVuImHoNrpDWK+/HRNkEdVN79/SIaAGo+A54STQB1NzFmBNtAFV3oqZEAzeZS6q7ifdEIxPU3hEeiZKFfp2Ud/VvRDMT1H8ycyVauQaH1J+uDURDE1zjCWnVmQKu8ZS7P6icmVbF/s/My0LoP4T+Q+g/hP4zIDyd32edA79ZU5QB4bZ7m9WY2/POa7t4OmfuuUVmCDNDWCCEmSEsEMLMEBYIYWYIC4QwM4QFQpgZwgIhzAxhgRBmhrBACDNDWCCEmSEsEMLMEBaouDDu8y0U+1iegoHPKNHswRkY+JyZdUOIEOHrQ4gQ4etDiBDh60OI8D8T9l1tr65XFLZ9Za++VRQSERERERERERERERERERERafQHoYNGT9Oh+koAAAAASUVORK5CYII="
+                      alt="open-in-new-tab"
+                    />
+                  </a>
                   <span className="newtabText">Open in a new Tab</span>
                 </div>
               </div>
