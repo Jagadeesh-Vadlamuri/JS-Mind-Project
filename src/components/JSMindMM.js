@@ -89,7 +89,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
         {clickedNode && nodeClicked && popupOpened && (
           <div
             style={{
-              position: "fixed",
+              position: "absolute",
               top:
                 clickedNode._data?.view?.abs_y +
                 clickedNode._data?.view?.height +
