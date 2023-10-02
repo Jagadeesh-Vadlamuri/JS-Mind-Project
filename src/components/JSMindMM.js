@@ -7,6 +7,16 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
   const [nodeClicked, setNodeClicked] = useState(false);
   const [hoveredNode, setHoveredNode] = useState(null);
   const [clickedNode, setClickedNode] = useState(false);
+  const [popupOpened, setPopupOpened] = useState(false);
+  const [popupClosed, setPopupClosed] = useState(false);
+  const [time, setTime] = useState(0);
+
+  const handlePopupClose = (e) => {
+    setClickedNode(false);
+    setPopupClosed(true);
+    // setTime(time+1);
+    // console.log(time);
+  };
 
   useEffect(() => {
     const jm = new window.jsMind(options);
@@ -17,13 +27,21 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
 
     const handleClick = (e) => {
       const selectedNode = jm.get_selected_node();
+      setPopupOpened(true);
+      setNodeClicked(true);
+
       if (selectedNode) {
         setClickedNode(true);
         setClickedNode(jm.get_selected_node());
-        setNodeClicked(true);
         setHoveredNode(null);
       }
-      console.log(selectedNode);
+      if(selectedNode && !popupOpened) {
+        selectedNode.style.transition = "transform 0.5s ease-in-out";
+        selectedNode.style.transform = "scale(2.5)";
+        selectedNode.style.zIndex = "1";
+        
+      }
+      // handlePopupClose();
     };
 
     const handleHover = (e) => {
@@ -33,9 +51,12 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
       const nodeId = targetNode.getAttribute("nodeid");
       const node = jm.get_node(nodeId);
       targetNode.style.backgroundColor = node.data?.data?.backgroundColor;
-      targetNode.style.transition = "transform 0.5s ease-in-out";
-      targetNode.style.transform = "scale(2.5)";
-      targetNode.style.zIndex = "4";
+      // if(popupOpened) {
+        targetNode.style.transition = "transform 0.5s ease-in-out";
+        targetNode.style.transform = "scale(2.5)";
+        targetNode.style.zIndex = "1";
+      // }
+      
       if (!nodeClicked) {
         node.data?.data?.info ? setHoveredNode(node) : setHoveredNode(null);
       } else {
@@ -48,9 +69,12 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
       const nodeId = targetNode.getAttribute("nodeid");
       const node = jm.get_node(nodeId);
       targetNode.style.backgroundColor = node.data?.data?.backgroundColor;
-      targetNode.style.transform = "scale(1)";
-      targetNode.style.zIndex = "0";
+      console.log(popupClosed)
+        targetNode.style.transform = "scale(1)";
+        targetNode.style.zIndex = "0";
     };
+
+    
 
     jmContainer.current.addEventListener("click", handleClick);
     nodes.forEach((node) => {
@@ -61,25 +85,27 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
     });
   }, []);
 
+  
   return (
     <div>
       <div ref={jmContainer} id={options.container} style={styles}></div>
       <div>
-        {clickedNode && nodeClicked && (
+        {clickedNode && nodeClicked && popupOpened &&(
           <div
             style={{
-              position: "absolute",
+              position: "fixed",
               top:
                 clickedNode._data?.view?.abs_y +
-                clickedNode._data?.view?.height +
-                340,
+                clickedNode._data?.view?.height + 398,
               left: clickedNode._data?.view?.abs_x,
-              width: "670px",
+              width: "570px",
+              height: '345px',
               backgroundColor: "white",
               // padding: "4px",
               border: "1px solid #ccc",
               borderRadius: "4px",
-              zIndex: 2,
+              zIndex: "1000",
+              // display: {},
               boxShadow:
                 "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
               padding: "10px",
@@ -102,7 +128,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
                 style={{
                   position: "absolute",
                   right: "6%",
-                  top: "6%",
+                  top: "4.1%",
                   display: "flex",
                   justifyContent: "space-between",
                   // gap: "4px",
@@ -119,7 +145,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
                   // boxShadow: "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
                 }}
               >
-                <div class="add">
+                <div className="add">
                   <img
                     width="24"
                     height="24"
@@ -148,11 +174,11 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
                       });
                     }}
                   />
-                  <span class="addNode">Add Node</span>
+                  <span className="addNode">Add Node</span>
                 </div>
 
                 {clickedNode.id !== "root" && (
-                  <div class="delete">
+                  <div className="delete">
                     <img
                       width="24"
                       height="24"
@@ -164,12 +190,12 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
                         setHoveredNode(null);
                       }}
                     />
-                    <span class="deleteNode">Delete Node</span>
+                    <span className="deleteNode">Delete Node</span>
                   </div>
                 )}
 
                 {clickedNode.data?.data?.url && (
-                  <div class="play">
+                  <div className="play">
                     <img
                       width="24"
                       height="24"
@@ -179,7 +205,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
                         onClickCourse(jmInstance.get_selected_node());
                       }}
                     />
-                    <span class="playNode">Open Course</span>
+                    <span className="playNode">Open Course</span>
                   </div>
                 )}
 
@@ -206,13 +232,13 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
                       });
                     }}
                   />
-                  <span class="markNode">Mark as Completed</span>
+                  <span className="markNode">Mark as Completed</span>
                 </div>
 
                 <span
                   style={{
                     position: "absolute",
-                    bottom: "-10px",
+                    bottom: "-5px",
                     left: "50px",
                     borderWidth: "10px 10px 0",
                     borderStyle: "solid",
@@ -227,9 +253,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
                 height="12"
                 src="https://img.icons8.com/small/16/delete-sign.png"
                 alt="delete-sign"
-                onClick={() => {
-                  setClickedNode(false);
-                }}
+                onClick={(e) => handlePopupClose(e)}
               />
             </div>
             <div
@@ -243,15 +267,19 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: "20px",
+                  gap: "5px",
                   alignItems: "center",
                 }}
               >
-                {clickedNode.data?.data?.info}
+                <div style={{padding: '9px', textAlign: 'left'}}>
+                  {clickedNode.data?.data?.info}
+                </div>
+                
                 <iframe
-                  width="90%"
-                  height="auto"
+                  width="530px"
+                  height="162px"
                   title="video"
+                  overflow="hidden"
                   src="https://cdn2.percipio.com/secure/b/1696234779.2bce70d738325a90edb5a3b518f76907c113e7a0/eot/af58d56f-fc23-4585-98fd-c663cd172d1a/720_2200kps.mp4"
                   allowFullScreen
                 ></iframe>
@@ -265,9 +293,8 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAP1BMVEX///9AQECtra0zMzMsLCzg4OApKSnX19c6Ojpzc3Ojo6MmJiapqanW1tba2trm5ubFxcW+vr5sbGycnJwXFxd1fVGJAAADRElEQVR4nO3d0XqaQBBAYQsoiaCmJu//rP3QWgTcuDs7rDPpOdcN5c8EVpc2bjZEREREREREREREREREREREtmr7StTvx4c77WWHm9a3isK+qyU158DxPr9Ex5vW9YrCqv4l6e09dMD9TnTASXVlWahBNC5UIFoX5hPNC7OJ9oWbfffThZlT9CDMm6ILYdYUfQhziE6EGUQvQjnRjVBM9COUEh0JhYuGJ6FsimsL6+Z5Xegd8JIomOLKwvpjG9Ep+m8QTHFlYbNVPPxQOtGbMJ3oTphM9CdMJToUJhI9CtMWDZfCTZ/w0sKn8PjThW3KhehR2DYJQI/CpAl6FCYC/QnTfkQdCtvk90/OhMkT9CZMn6AzoWCCvoSSCboSHiQT9CRMXQfdCQ9Gd/XVhKKbjCeh7CbjSCifoBNhxATr4HtiD8KICe62fei74EAYMcHmGN6Bsy+MWOgHYJBoXhix0F+BIaJ1YcRCfwMGiMaFMTeZ4/jHHxFtCyNvMmMPiKaFERPsjtMvWW74WxYmT3BoMUXDwsRr8NZ8inaFogkOzaZoVhi90C+bEq0KExb6ZROiUWHSQr/snmhTKLzJjN0RTQrFN5mxkWhRKFjol/1bNAwKFSY4dJuiPWH2NXjr7xTNCZUmOHSdojVhxkK/7EI0JsxcB+cNRGPC4I6ZCHghGhNuqifEuJvM2H5nTfiEmDbBof2XNeG3xOcL/bLPffrXhE9OZcUPE9MnOBT/r8gjzk3nVVuImHoNrpDWK+/HRNkEdVN79/SIaAGo+A54STQB1NzFmBNtAFV3oqZEAzeZS6q7ifdEIxPU3hEeiZKFfp2Ud/VvRDMT1H8ycyVauQaH1J+uDURDE1zjCWnVmQKu8ZS7P6icmVbF/s/My0LoP4T+Q+g/hP4zIDyd32edA79ZU5QB4bZ7m9WY2/POa7t4OmfuuUVmCDNDWCCEmSEsEMLMEBYIYWYIC4QwM4QFQpgZwgIhzAxhgRBmhrBACDNDWCCEmSEsEMLMEBaouDDu8y0U+1iegoHPKNHswRkY+JyZdUOIEOHrQ4gQ4etDiBDh60OI8D8T9l1tr65XFLZ9Za++VRQSERERERERERERERERERERafQHoYNGT9Oh+koAAAAASUVORK5CYII="
                     alt="open-in-new-tab"
                   />
-                  </a>
-                  
-                  <span class="newtabText">Open in a new Tab</span>
+                  </a>  
+                  <span className="newtabText">Open in a new Tab</span>
                 </div>
               </div>
             </div>
