@@ -56,7 +56,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
       targetNode.style.transform = "scale(1)";
       
       // targetNode.style.transform = "scale(2.5)";
-      // targetNode.style.zIndex = "1";
+      targetNode.style.zIndex = "1";
     };
 
     const handleClick = (e) => {
