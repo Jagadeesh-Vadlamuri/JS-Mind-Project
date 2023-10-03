@@ -299,7 +299,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
               <div>
                 <div className="newTab">
                   <a
-                    href="https://cdn2.percipio.com/secure/b/1696234779.2bce70d738325a90edb5a3b518f76907c113e7a0/eot/af58d56f-fc23-4585-98fd-c663cd172d1a/720_2200kps.mp4"
+                    href="https://cdn2.percipio.com/secure/b/1696401871.5f974951b40b3e998d72e18efc97e598f9691783/eot/83c89bf5-034c-4413-879f-771aa03a7e50/720_1200kps.mp4"
                     target="_blank"
                   >
                     <img
