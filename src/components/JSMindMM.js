@@ -14,6 +14,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
   const handlePopupClose = (e) => {
     setPopupClosed(true);
     setClickedNode(false);
+    
   };
 
   useEffect(() => {
@@ -23,23 +24,6 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
 
     const nodes = jm.view?.container.querySelectorAll("jmnode");
 
-    const handleClick = (e) => {
-      const selectedNode = jm.get_selected_node();
-      setPopupOpened(true);
-      setNodeClicked(true);
-
-      if (selectedNode) {
-        setClickedNode(true);
-        setClickedNode(jm.get_selected_node());
-        setHoveredNode(null);
-      }
-      if (selectedNode && !popupOpened) {
-        selectedNode.style.transition = "transform 0.5s ease-in-out";
-        selectedNode.style.transform = "scale(2.5)";
-        selectedNode.style.zIndex = "1";
-      }
-    };
-
     const handleHover = (e) => {
       setHoveredNode(null);
       setNodeClicked(false);
@@ -48,8 +32,9 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
       const node = jm.get_node(nodeId);
       targetNode.style.backgroundColor = node.data?.data?.backgroundColor;
       targetNode.style.transition = "transform 0.5s ease-in-out";
-      targetNode.style.transform = "scale(2.5)";
+      targetNode.style.transform = "scale(2.6)";
       targetNode.style.zIndex = "1";
+      console.log(targetNode.style.transform)
 
       if (!nodeClicked) {
         node.data?.data?.info ? setHoveredNode(node) : setHoveredNode(null);
@@ -59,19 +44,49 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
     };
 
     const handleUnHover = (e) => {
+      // handleUnHover2(e);
       const targetNode = e.currentTarget;
+      // const nodeId = targetNode.getAttribute("nodeid");
+      // const node = jm.get_node(nodeId);
       const nodeId = targetNode.getAttribute("nodeid");
       const node = jm.get_node(nodeId);
       targetNode.style.backgroundColor = node.data?.data?.backgroundColor;
-      console.log(popupClosed);
+      // console.log(popupClosed);
+      targetNode.style.transition = "transform 0.5s ease-in-out";
       targetNode.style.transform = "scale(1)";
-      targetNode.style.zIndex = "0";
+      
+      // targetNode.style.transform = "scale(2.5)";
+      // targetNode.style.zIndex = "1";
     };
 
-    jmContainer.current.addEventListener("click", handleClick);
+    const handleClick = (e) => {
+      const selectedNode = jm.get_selected_node();
+      
+      setPopupOpened(true);
+      setNodeClicked(true);
+      console.log(popupOpened);
+
+      if (selectedNode) {
+        setClickedNode(true);
+        setClickedNode(jm.get_selected_node());
+        setHoveredNode(null);
+      }
+    };
+
+
+    // jmContainer.current.addEventListener("click", handleClick);
     nodes.forEach((node) => {
       node.addEventListener("mouseenter", handleHover);
       node.addEventListener("mouseleave", handleUnHover);
+      node.addEventListener("click", handleClick)
+      if(nodeClicked) {
+        node.addEventListener("mouseenter", handleHover);
+        node.addEventListener("mouseleave", handleHover);
+        // setPopupOpened(true)
+      }
+      // if(handlePopupClose()) {
+      //   handleUnHover();
+      // }
       const styleNode = jm.get_node(node.getAttribute("nodeid"));
       node.style.backgroundColor = styleNode.data?.data?.backgroundColor;
     });
