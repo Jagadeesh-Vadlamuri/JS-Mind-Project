@@ -9,13 +9,11 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
   const [clickedNode, setClickedNode] = useState(false);
   const [popupOpened, setPopupOpened] = useState(false);
   const [popupClosed, setPopupClosed] = useState(false);
-  const [time, setTime] = useState(0);
+  const [addNode, setAddNode] = useState(false);
 
   const handlePopupClose = (e) => {
-    setClickedNode(false);
     setPopupClosed(true);
-    // setTime(time+1);
-    // console.log(time);
+    setClickedNode(false);
   };
 
   useEffect(() => {
@@ -40,7 +38,6 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
         selectedNode.style.transform = "scale(2.5)";
         selectedNode.style.zIndex = "1";
       }
-      // handlePopupClose();
     };
 
     const handleHover = (e) => {
@@ -50,11 +47,9 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
       const nodeId = targetNode.getAttribute("nodeid");
       const node = jm.get_node(nodeId);
       targetNode.style.backgroundColor = node.data?.data?.backgroundColor;
-      // if(popupOpened) {
       targetNode.style.transition = "transform 0.5s ease-in-out";
       targetNode.style.transform = "scale(2.5)";
       targetNode.style.zIndex = "1";
-      // }
 
       if (!nodeClicked) {
         node.data?.data?.info ? setHoveredNode(node) : setHoveredNode(null);
@@ -149,6 +144,8 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
                     src="https://img.icons8.com/color/48/add--v1.png"
                     alt="add--v1"
                     onClick={(e) => {
+                      setAddNode(true);
+                      handlePopupClose();
                       var new_node_id =
                         clickedNode.id + "_" + new Date().getTime();
                       var new_node_topic = "This is a new node";
