@@ -292,7 +292,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
                   height="162px"
                   title="video"
                   overflow="hidden"
-                  src="https://cdn2.percipio.com/secure/b/1696322898.a309974332da98e854e20c850de49950f80c96f6/eot/af58d56f-fc23-4585-98fd-c663cd172d1a/720_2200kps.mp4"
+                  src="https://cdn2.percipio.com/secure/b/1696401871.5f974951b40b3e998d72e18efc97e598f9691783/eot/83c89bf5-034c-4413-879f-771aa03a7e50/720_1200kps.mp4"
                   allowFullScreen
                 ></iframe>
               </div>
