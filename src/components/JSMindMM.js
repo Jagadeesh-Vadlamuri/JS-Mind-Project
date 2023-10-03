@@ -74,11 +74,11 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
     };
 
 
-    // jmContainer.current.addEventListener("click", handleClick);
+    jmContainer.current.addEventListener("click", handleClick);
     nodes.forEach((node) => {
       node.addEventListener("mouseenter", handleHover);
       node.addEventListener("mouseleave", handleUnHover);
-      node.addEventListener("click", handleClick)
+      // node.addEventListener("click", handleClick)
       if(nodeClicked) {
         node.addEventListener("mouseenter", handleHover);
         node.addEventListener("mouseleave", handleHover);
