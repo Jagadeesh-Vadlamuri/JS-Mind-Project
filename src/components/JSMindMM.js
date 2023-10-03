@@ -32,7 +32,7 @@ const JSMindMM = ({ mind, styles, options, onClickCourse }) => {
       const node = jm.get_node(nodeId);
       targetNode.style.backgroundColor = node.data?.data?.backgroundColor;
       targetNode.style.transition = "transform 0.5s ease-in-out";
-      targetNode.style.transform = "scale(2.8)";
+      targetNode.style.transform = "scale(3)";
       targetNode.style.zIndex = "1";
       console.log(targetNode.style.transform)
 
